@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
 
-    <h:head>
-        <title>PrimeFaces Test</title>
-        <h:outputScript name="test.js" />
-    </h:head>
-    <h:body>
-
-        <h1>#{testView.string}</h1>
-        <h:form id="frmTest">
-            
-        </h:form>
-
-    </h:body>
+	<h:head>
+		<title>PrimeFaces Test</title>
+		<h:outputScript name="test.js" />
+	</h:head>
+	<h:body>
+		<p:growl id="messages" showDetail="true"/>
+		
+		<p:ajaxStatus styleClass="p-d-block p-mb-4">
+			<f:facet name="default">
+				<h:outputText value="Status: StandBy" />
+			</f:facet>
+	
+			<f:facet name="start">
+				<i class="pi pi-spin pi-spinner loading-icon" aria-hidden="true"></i>
+			</f:facet>
+		
+			<f:facet name="complete">
+				<h:outputText value="Status: Completed" />
+			</f:facet>
+		</p:ajaxStatus>
+		
+		<h:form>
+			<div class="p-mb-5">
+				<p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" auto="true"
+					process="@this" update="messages"
+					listener="#{fileUploadView.handleFileUpload}" />
+			</div>
+			
+			<div class="p-mb-5">
+				<p:commandButton value="Click" action="#{fileUploadView.buttonClick()}" />
+			</div>
+		</h:form>
+	</h:body>
 </html>
